@@ -7,8 +7,8 @@
 
 Summary:      Extension to work with the Memcached caching daemon
 Name:         %{php_base}-pecl-memcached
-Version:      1.0.0
-Release:      3.ius%{?dist}
+Version:      2.1.0
+Release:      1.ius%{?dist}
 License:      PHP
 Group:        Development/Languages
 URL:          http://pecl.php.net/package/%{pecl_name}
@@ -18,7 +18,9 @@ Source:       http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: %{php_base}-devel, %{php_base}-pear
-BuildRequires: libmemcached-devel, zlib-devel
+BuildRequires: libmemcached10-devel >= 1.0.13
+BuildRequires: zlib-devel
+
 
 # This is EPEL-5 specific
 Requires:     %{php_base}-zend-abi = %{php_zendabiver}
@@ -81,13 +83,17 @@ EOF
 
 %files
 %defattr(-, root, root, -)
-%doc %{pecl_name}-%{version}/{CREDITS,LICENSE,EXPERIMENTAL,README.markdown,ChangeLog}
+%doc %{pecl_name}-%{version}/{CREDITS,LICENSE,README.markdown,ChangeLog}
 %config(noreplace) %{_sysconfdir}/php.d/%{pecl_name}.ini
 %{php_extdir}/%{pecl_name}.so
 %{pecl_xmldir}/%{name}.xml
 
 
 %changelog
+* Tue Jan 07 2014 Ben Harper <ben.harper@rackspace.com> - 2.1.0-1.ius
+- latest stable release
+- updated BuildRequires and %doc
+
 * Wed Nov 06 2013 Ben Harper <ben.harper@rackspace.com> - 1.0.0-3.ius
 - adding provides per LB bug 1052542 comment #28
 
